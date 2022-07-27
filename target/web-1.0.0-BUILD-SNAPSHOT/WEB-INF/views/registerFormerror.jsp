@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page session="false" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,12 +16,14 @@
     let msg = "${msg}";
 </script>
 <body>
-<form action="<c:url value="/register/add"/>" method="post" onsubmit="return formCheck(this)">
+<%--<form action="<c:url value="/register/add"/>" method="post" onsubmit="return formCheck(this)">--%>
+<form:form modelAttribute="user">
     <div class="title">Register</div>
     <div id="msg" class="msg">
         <c:if test="${not empty msg}">
-            <i class="fa fa-exclamation-circle"> ${msg}</i>
+<%--            <i class="fa fa-exclamation-circle"> ${msg}</i>--%>
         </c:if>
+            <form:errors path="id"/>
     </div>
     <label for="">아이디</label>
     <input class="input-field" type="text" name="id" value="<c:out value='${user.id}'/>"
@@ -33,58 +36,17 @@
     <label for="">이메일</label>
     <input class="input-field" type="text" name="email" value="<c:out value='${user.email}'/>"
            placeholder="example@fastcampus.co.kr">
-
-    <!-- BIRTH -->
-    <div>
-        <label for="yy">생년월일</label>
-        <div id="bir_wrap">
-            <!-- BIRTH_YY -->
-            <div id="bir_yy">
-                            <span class="box">
-                                <input type="text" id="yy" class="int" maxlength="4" placeholder="년(4자)">
-                            </span>
-            </div>
-            <!-- BIRTH_MM -->
-            <div id="bir_mm">
-                            <span class="box">
-                                <select id="mm">
-                                    <option>월</option>
-                                    <option value="01">1</option>
-                                    <option value="02">2</option>
-                                    <option value="03">3</option>
-                                    <option value="04">4</option>
-                                    <option value="05">5</option>
-                                    <option value="06">6</option>
-                                    <option value="07">7</option>
-                                    <option value="08">8</option>
-                                    <option value="09">9</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                </select>
-                            </span>
-            </div>
-            <!-- BIRTH_DD -->
-            <div id="bir_dd">
-                            <span class="box">
-                                <input type="text" id="dd" class="int" maxlength="2" placeholder="일">
-                            </span>
-            </div>
-
-
-            <span class="error_next_box"></span>
-        </div>
-    </div>
+    <label for="">생일</label>
+    <input class="input-field" type="text" name="birth" value="<c:out value='${user.birth}'/>" placeholder="2020/12/31">
     <div class="sns-chk">
         <label><input type="checkbox" name="sns" value="facebook"/>페이스북</label>
         <label><input type="checkbox" name="sns" value="kakaotalk"/>카카오톡</label>
         <label><input type="checkbox" name="sns" value="instagram"/>인스타그램</label>
     </div>
-    <div class="sns-chk">
-        <button class="ui-icon-clock">회원 가입</button>
-<%--        <button onclick="location.href='<c:url value="/"/>'">취소</button>--%>
-    </div>
-</form>
+    <button>회원 가입</button>
+    <button onclick="location.href='<c:url value="/"/>'">취소</button>
+    <%--</form>--%>
+</form:form>
 
 
 <script>

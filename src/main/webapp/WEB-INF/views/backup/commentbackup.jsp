@@ -1,189 +1,88 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
-<%@ page session="true"%>
-<c:set var="loginId" value="${sessionScope.id}"/>
-<c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
-<c:set var="loginOut" value="${loginId=='' ? 'Login' : 'Logout'}"/>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>fastcampus</title>
-    <link rel="stylesheet" href="<c:url value='/css/menu.css'/>">
-    <link rel="stylesheet" href="<c:url value='/css/board.css'/>">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<c:url value='/css/comment.css'/>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-    <style>
-
-    </style>
+    <title>Document</title>
 </head>
 <body>
-<div id="menu">
-    <ul class="menu-ul">
-        <li id="logo">MyPortfolio</li>
-        <li><a class="menu-a" href="<c:url value='/'/>">Home</a></li>
-        <li><a class="menu-a" href="<c:url value='/board/list'/>">Board</a></li>
-        <li><a class="menu-a" href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
-        <li><a class="menu-a" href="<c:url value='/register/add'/>">Sign in</a></li>
-        <li><a class="menu-a" href=""><i class="fa fa-search"></i></a></li>
-    </ul>
-</div>
 
-<script>
-    let msg = "${msg}";
-    if(msg=="WRT_ERR") alert("게시물 등록에 실패하였습니다. 다시 시도해 주세요.");
-    if(msg=="MOD_ERR") alert("게시물 수정에 실패하였습니다. 다시 시도해 주세요.");
-</script>
-<div class="container">
-    <h2 class="writing-header">게시판 ${mode=="new" ? "글쓰기" : "읽기"}</h2>
-    <form id="form" class="frm" action="" method="post">
-        <input class="board-input" type="hidden" name="bno" value="${boardDto.bno}">
+<div id="commentList">
+    <ul id="test"></ul>
 
-        <input class="board-input" name="title" type="text" value="<c:out value="${boardDto.title}"/>" placeholder="  제목을 입력해 주세요." ${mode=="new" ? "" : "readonly='readonly'"}><br>
-        <textarea class="board-textarea" name="content" rows="20" placeholder=" 내용을 입력해 주세요." ${mode=="new" ? "" : "readonly='readonly'"}><c:out value="${boardDto.content}"/></textarea><br>
-
-        <c:if test="${mode eq 'new'}">
-            <button type="button" id="writeBtn" class="btn btn-write"><i class="fa fa-pencil"></i> 등록</button>
-        </c:if>
-        <c:if test="${mode ne 'new'}">
-            <button type="button" id="writeNewBtn" class="btn btn-write"><i class="fa fa-pencil"></i> 글쓰기</button>
-        </c:if>
-        <c:if test="${boardDto.writer eq loginId}">
-            <button type="button" id="modifyBtn" class="btn btn-modify"><i class="fa fa-edit"></i> 수정</button>
-            <button type="button" id="removeBtn" class="btn btn-remove"><i class="fa fa-trash"></i> 삭제</button>
-        </c:if>
-        <button type="button" id="listBtn" class="btn btn-list"><i class="fa fa-bars"></i> 목록</button>
-    </form>
-
-    <div id="commentList">
-        <ul class="comment-ul" id="test"></ul>
-
-        <!-- 페이징 -->
-        <div class="paging-container">
-            <div class="paging">
-                <a class="page" href="#">&lt;</a>
-                <a class="page" href="#">1</a>
-                <a class="page" href="#">2</a>
-                <a class="page" href="#">3</a>
-                <a class="page" href="#">4</a>
-                <a class="page paging-active" href="#">5</a>
-                <a class="page" href="#">6</a>
-                <a class="page" href="#">7</a>
-                <a class="page" href="#">8</a>
-                <a class="page" href="#">9</a>
-                <a class="page" href="#">10</a>
-                <a class="page" href="#">&gt;</a>
-            </div>
-        </div>
-
-        <!-- 댓글 입력창 -->
-        <div id="comment-writebox">
-            <div class="commenter commenter-writebox">${id}</div>
-            <div class="comment-writebox-content">
-                <textarea class="comment-textarea" name="comment" cols="30" rows="3" placeholder="댓글을 남겨보세요"></textarea>
-            </div>
-            <div id="comment-writebox-bottom">
-                <div class="register-box">
-                    <a href="#" class="comment-btn" id="btn-write-comment">등록</a>
-                </div>
-            </div>
+    <!-- 페이징 -->
+    <div class="paging-container">
+        <div class="paging">
+            <a class="page" href="#">&lt;</a>
+            <a class="page" href="#">1</a>
+            <a class="page" href="#">2</a>
+            <a class="page" href="#">3</a>
+            <a class="page" href="#">4</a>
+            <a class="page paging-active" href="#">5</a>
+            <a class="page" href="#">6</a>
+            <a class="page" href="#">7</a>
+            <a class="page" href="#">8</a>
+            <a class="page" href="#">9</a>
+            <a class="page" href="#">10</a>
+            <a class="page" href="#">&gt;</a>
         </div>
     </div>
 
-    <!-- 대댓글 창 -->
-    <div id="reply-writebox">
+    <!-- 댓글 입력창 -->
+    <div id="comment-writebox">
         <div class="commenter commenter-writebox">${id}</div>
-        <div class="reply-writebox-content">
-            <textarea name="" id="" cols="30" rows="3" placeholder="댓글을 남겨보세요"></textarea>
+        <div class="comment-writebox-content">
+            <textarea name="comment" cols="30" rows="3" placeholder="댓글을 남겨보세요"></textarea>
         </div>
-        <div id="reply-writebox-bottom">
+        <div id="comment-writebox-bottom">
             <div class="register-box">
-                <a href="#" class="btn" id="btn-write-reply">등록</a>
-                <a href="#" class="btn" id="btn-cancel-reply">취소</a>
+                <a href="#" class="btn" id="btn-write-comment">등록</a>
             </div>
         </div>
     </div>
-
-    <!-- 수정버튼 클릭시 보여줄 모달창-->
-    <div id="modalWin" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p>
-            <h2> | 댓글 수정</h2>
-            <div id="modify-writebox">
-                <div class="commenter commenter-writebox"></div>
-                <div class="modify-writebox-content">
-                    <textarea name="comment2" id="" cols="30" rows="5" placeholder="댓글을 남겨보세요"></textarea>
-                </div>
-                <div id="modify-writebox-bottom">
-                    <div class="register-box">
-                        <a href="#" class="btn" id="btn-write-modify">등록</a>
-                    </div>
-                </div>
-            </div>
-            </p>
-        </div>
-    </div>
-
 </div>
 
-<script>
-    $(document).ready(function(){
-        let formCheck = function() {
-            let form = document.getElementById("form");
-            if(form.title.value=="") {
-                alert("제목을 입력해 주세요.");
-                form.title.focus();
-                return false;
-            }
-            if(form.content.value=="") {
-                alert("내용을 입력해 주세요.");
-                form.content.focus();
-                return false;
-            }
-            return true;
-        }
-        $("#writeNewBtn").on("click", function(){
-            location.href="<c:url value='/board/write'/>";
-        });
-        $("#writeBtn").on("click", function(){
-            let form = $("#form");
-            form.attr("action", "<c:url value='/board/write'/>");
-            form.attr("method", "post");
-            if(formCheck())
-                form.submit();
-        });
-        $("#modifyBtn").on("click", function(){
-            let form = $("#form");
-            let isReadonly = $("input[name=title]").attr('readonly');
-            // 1. 읽기 상태이면, 수정 상태로 변경
-            if(isReadonly=='readonly') {
-                $(".writing-header").html("게시판 수정");
-                $("input[name=title]").attr('readonly', false);
-                $("textarea").attr('readonly', false);
-                $("#modifyBtn").html("<i class='fa fa-pencil'></i> 등록");
-                return;
-            }
-            // 2. 수정 상태이면, 수정된 내용을 서버로 전송
-            form.attr("action", "<c:url value='/board/modify${searchCondition.queryString}'/>");
-            form.attr("method", "post");
-            if(formCheck())
-                form.submit();
-        });
-        $("#removeBtn").on("click", function(){
-            if(!confirm("정말로 삭제하시겠습니까?")) return;
-            let form = $("#form");
-            form.attr("action", "<c:url value='/board/remove${searchCondition.queryString}'/>");
-            form.attr("method", "post");
-            form.submit();
-        });
-        $("#listBtn").on("click", function(){
-            location.href="<c:url value='/board/list${sc.getQueryString(sc.page)}'/>";
-        });
-    });
-</script>
+<!-- 대댓글 창 -->
+<div id="reply-writebox">
+    <div class="commenter commenter-writebox">${id}</div>
+    <div class="reply-writebox-content">
+        <textarea name="" id="" cols="30" rows="3" placeholder="댓글을 남겨보세요"></textarea>
+    </div>
+    <div id="reply-writebox-bottom">
+        <div class="register-box">
+            <a href="#" class="btn" id="btn-write-reply">등록</a>
+            <a href="#" class="btn" id="btn-cancel-reply">취소</a>
+        </div>
+    </div>
+</div>
+
+<!-- 수정버튼 클릭시 보여줄 모달창-->
+<div id="modalWin" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>
+        <h2> | 댓글 수정</h2>
+        <div id="modify-writebox">
+            <div class="commenter commenter-writebox"></div>
+            <div class="modify-writebox-content">
+                <textarea name="comment2" id="" cols="30" rows="5" placeholder="댓글을 남겨보세요"></textarea>
+            </div>
+            <div id="modify-writebox-bottom">
+                <div class="register-box">
+                    <a href="#" class="btn" id="btn-write-modify">등록</a>
+                </div>
+            </div>
+        </div>
+        </p>
+    </div>
+</div>
 
 
 <script>
@@ -356,7 +255,7 @@
         let tmp = ""
         let i = 0;
         comments.forEach(function (comment) {
-            tmp += '<li class="comment-li comment-item" data-cno=' + comment.cno + ' data-bno="1070">';
+            tmp += '<li class="comment-item" data-cno=' + comment.cno + ' data-bno="1070">';
             tmp += '<span class="comment-img">'
             tmp += '<i class="fa fa-user-circle" aria-hidden="true"></i>'
             tmp += '</span>'
