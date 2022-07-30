@@ -1,5 +1,7 @@
 package com.myportfolio.web.domain;
 
+import com.myportfolio.web.handler.CommentPageHandler;
+
 import java.util.Date;
 import java.util.Objects;
 
@@ -101,4 +103,6 @@ public class CommentDto {
     public int hashCode() {
         return Objects.hash(cno, bno, pcno, comment, commenter);
     }
+
+    public CommentPageHandler commentPageHandler;
 }

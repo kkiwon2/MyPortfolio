@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -59,5 +60,10 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public int modify(CommentDto commentDto) throws Exception {
         return commentDao.update(commentDto);
+    }
+
+    @Override
+    public List<CommentDto> selectPage(Map map) throws Exception {
+        return commentDao.selectPage(map);
     }
 }

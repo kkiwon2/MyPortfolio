@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
     <link rel="stylesheet" href="<c:url value='/css/registerForm.css'/>">
+    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <title>Register</title>
 </head>
 <script>
@@ -23,24 +24,29 @@
         </c:if>
     </div>
     <label for="">아이디</label>
-    <input class="input-field" type="text" name="id" value="<c:out value='${user.id}'/>" placeholder="5~12자리의 영대소문자와 숫자 조합">
+    <input class="input-field" type="text" name="id" value="<c:out value='${user.id}'/>" placeholder="5~12자리의 영대소문자와 숫자 조합" maxlength="12">
     <label for="">비밀번호</label>
-    <input class="input-field" type="password" name="pwd" value="<c:out value='${user.pwd}'/>" placeholder="5~12자리의 영대소문자와 숫자 조합">
+    <input class="input-field" type="password" name="pwd" value="<c:out value='${user.pwd}'/>" placeholder="5~12자리의 영대소문자와 숫자 조합" maxlength="12">
+    <label for="">비밀번호 재확인</label>
+    <input class="input-field" type="password" name="pwd2" value="" maxlength="12">
     <label for="">이름</label>
-    <input class="input-field" type="text" name="name" value="<c:out value='${user.name}'/>" placeholder="홍길동">
+    <input class="input-field" type="text" name="name" value="<c:out value='${user.name}'/>" placeholder="홍길동" maxlength="12">
     <label for="">이메일</label>
-    <input class="input-field" type="email" name="email" value="<c:out value='${user.email}'/>"placeholder="example@fastcampus.co.kr">
+    <input class="input-field" type="email" name="email" value="<c:out value='${user.email}'/>"placeholder="example@test.co.kr" maxlength="25">
     <label for="">생일</label>
-    <div>
-    <input class="" type="month" name="birth" value="<c:out value='${user.birth}'/>">
+    <input class="input-field" type="text" name="birth" value="<c:out value='${user.birth}'/>" placeholder="1994-10-21" maxlength="10">
+<%--
+    <label for="">생년월일</label>
+    <div class="#bir_wrap">
+    <input class="bir_yy" type="text" name="yy" value="<c:out value='${user.birth}'/>" maxlength="4" placeholder="2020/12/31">
+    <input class="bir_mm" type="text" name="mm" value="<c:out value='${user.birth}'/>" placeholder="2020/12/31">
+    <input class="bir_mm" type="text" name="dd" value="<c:out value='${user.birth}'/>" placeholder="2020/12/31">
     </div>
-    <div class="sns-chk">
-        <label><input type="checkbox" name="sns" value="facebook"/>페이스북</label>
-        <label><input type="checkbox" name="sns" value="kakaotalk"/>카카오톡</label>
-        <label><input type="checkbox" name="sns" value="instagram"/>인스타그램</label>
-    </div>
+    --%>
+    <div class="bir_wrap">
     <button>회원 가입</button>
-    <button onclick="location.href='<c:url value="/"/>'">취소</button>
+        <button class="cancel">취소</button>
+    </div>
 </form>
 
 
@@ -56,6 +62,15 @@
             setMessage('패스워드의 길이는 5이상이어야 합니다.', frm.pwd);
             return false;
         }
+
+        if(frm.pwd.value!==frm.pwd2.value)
+        {
+            console.log(frm.pwd.value)
+            console.log(frm.pwd2)
+            setMessage('비밀번호가 다릅니다.', frm.pwd2)
+            return false;
+        }
+
         if(frm.name.value.length==0) {
             setMessage('이름을 입력해주세요', frm.name);
             return false;
@@ -78,6 +93,13 @@
             element.select();
         }
     }
+
+    $(document).ready(function (){
+        $(".cancel").on("click",function (e){
+            e.preventDefault();
+            location.href="<c:url value='/'/>"
+        });
+    });
 </script>
 </body>
 </html>

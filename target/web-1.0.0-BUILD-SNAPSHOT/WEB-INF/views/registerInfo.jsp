@@ -1,3 +1,4 @@
+<%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,8 +12,9 @@
 <h1>pwd=${userDto.pwd}</h1>
 <h1>name=${userDto.name}</h1>
 <h1>email=${userDto.email}</h1>
-<h1>birth=${userDto.birth}</h1>
-<h1>sns=${userDto.sns}</h1>
+${userDto.birth}
+<h1>birth=<fmt:formatDate value="${userDto.birth}" pattern="yyyy-MM-dd" type="date"/></h1>
+
 <a ></a>
 </body>
 </html>

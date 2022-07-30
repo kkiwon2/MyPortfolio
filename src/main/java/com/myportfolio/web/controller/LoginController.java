@@ -21,20 +21,12 @@ public class LoginController {
     @Autowired
     UserService userService;
 
+    //Login화면 요청
     //localhost/web/login/login GET
     @GetMapping("/login")
     public String loginForm(HttpSession session) {
         session.invalidate();   //로그인 안했으니까 세션없앰
         return "loginForm";
-    }
-
-    //localhost/web/login/logout
-    @GetMapping("/logout")
-    public String logout(HttpSession session) { //세션은 request.getSession();로부터 얻어도되지만 그냥 HttpSession클래스만 해도 자동으로 스프링이 넣어줌
-        // 1. 세션을 종료
-        session.invalidate();
-        // 2. 홈으로 이동
-        return "redirect:/";
     }
 
     //localhost/web/login/login POST
@@ -47,7 +39,8 @@ public class LoginController {
             // 2-1. 일치하지 않으면, loginForm으로 이동
             String msg = URLEncoder.encode("id 또는 pwd가 일치하지 않습니다.", "utf-8");
             return "redirect:/login/login?msg=" + msg;
-        }//if
+        }//end if
+
         // 2-2. id와 pwd가 일치하면,
         //  세션 객체를 얻어오기
         HttpSession session = request.getSession();
@@ -67,11 +60,20 @@ public class LoginController {
 //		       2. 응답에 저장
             response.addCookie(cookie);
         }//else
-        System.out.println("toURL = " + toURL);
 //		       3. 홈으로 이동
+
         toURL = (toURL == null || toURL.equals("") ? "/" : toURL);
 
         return "redirect:" + toURL;
+    }// @PostMapping("/login")
+
+    //localhost/web/login/logout
+    @GetMapping("/logout")
+    public String logout(HttpSession session) { //세션은 HttpServletRequest로부터 얻어도되지만 그냥 HttpSession클래스만 해도 자동으로 스프링이 넣어줌
+        // 1. 세션을 종료
+        session.invalidate();
+        // 2. 홈으로 이동
+        return "redirect:/";
     }
 
     private boolean loginCheck(String id, String pwd) {

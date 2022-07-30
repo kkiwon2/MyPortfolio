@@ -49,7 +49,7 @@ public class DBConnectionTest2Test {
         pstmt.setString(3, user.getName());
         pstmt.setString(4, user.getEmail());
         pstmt.setDate(5, new java.sql.Date(user.getBirth().getTime()));
-        pstmt.setString(6, user.getSns());
+
 
         System.out.println("user.getBirth().getTime() = " + user.getBirth().getTime());
 
@@ -83,7 +83,6 @@ public class DBConnectionTest2Test {
             user.setName(rs.getString(3));
             user.setEmail(rs.getString(4));
             user.setBirth(new Date(rs.getDate(5).getTime()));
-            user.setSns(rs.getString(6));
             user.setReg_date(new Date(rs.getTimestamp(7).getTime()));
             return user;
         }
@@ -118,7 +117,7 @@ public class DBConnectionTest2Test {
 
     @Test
     public void insertUserTest() throws Exception {
-        UserDto user = new UserDto("asdf", "1234", "abc", "aaaa@aaa.com", new Date(), "fb");
+        UserDto user = new UserDto("asdf", "1234", "abc", "aaaa@aaa.com", new Date());
         deleteAll();
         int rowCnt = insertUser(user);
 
@@ -128,7 +127,7 @@ public class DBConnectionTest2Test {
     @Test
     public void selectUserTest() throws Exception {
         deleteAll();
-        UserDto user = new UserDto("asdf2", "1234", "abc", "aaaa@aaa.com", new Date(), "fb");
+        UserDto user = new UserDto("asdf2", "1234", "abc", "aaaa@aaa.com", new Date());
         int rowCnt = insertUser(user);
         UserDto user2 = selectUser("asdf2");
 
@@ -142,7 +141,7 @@ public class DBConnectionTest2Test {
 
         assertTrue(rowCnt==0);
 
-        UserDto user = new UserDto("asdf2", "1234", "abc", "aaaa@aaa.com", new Date(), "fb");
+        UserDto user = new UserDto("asdf2", "1234", "abc", "aaaa@aaa.com", new Date());
         rowCnt = insertUser(user);
         assertTrue(rowCnt==1);
 
@@ -156,7 +155,7 @@ public class DBConnectionTest2Test {
     @Test
     public void updateUserTest() throws Exception{
         deleteAll();
-        UserDto user = new UserDto("asdf2", "1234", "abc", "aaaa@aaa.com", new Date(), "fb");
+        UserDto user = new UserDto("asdf2", "1234", "abc", "aaaa@aaa.com", new Date());
         int rowCnt = insertUser(user);
         assertTrue(rowCnt==1);
 

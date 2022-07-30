@@ -44,7 +44,7 @@
         <label><input type="checkbox" name="sns" value="instagram"/>인스타그램</label>
     </div>
     <button>회원 가입</button>
-    <button onclick="location.href='<c:url value="/"/>'">취소</button>
+    <button class="cancel" onclick="location.href='<c:url value="/"/>'">취소</button>
     <%--</form>--%>
 </form:form>
 
@@ -83,6 +83,7 @@
             element.select();
         }
     }
+
 </script>
 </body>
 </html>

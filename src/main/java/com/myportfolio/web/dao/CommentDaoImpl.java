@@ -52,4 +52,9 @@ public class CommentDaoImpl implements CommentDao {
     public int update(CommentDto dto) throws Exception {
         return session.update(namespace+"update", dto);
     } // int update(String statement, Object parameter)
+
+    @Override
+    public List<CommentDto> selectPage(Map map) throws Exception {
+        return session.selectList(namespace+"selectPage", map);
+    }
 }

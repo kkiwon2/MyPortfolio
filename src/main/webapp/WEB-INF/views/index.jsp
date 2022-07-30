@@ -2,8 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false"%>
 <!-- session="false"값을 주어서 sessionScope.id 사용 할 수 없음 밑으로 대체 -->
-<%--sessionScope와 pageContext.session을 사용 불가능하다는 소리이다.--%>
-<%--<c:set var="loginId" value="${sessionScope.id}"/>--%>
+<%-- sessionScope와 pageContext.session을 사용 불가능하다는 소리이다.--%>
+<%-- pageContext.request.getSession(false).getAttribute("id")로 변경해야된다. -> 에러떠도 상관없음 -->
+<%-- <c:set var="loginId" value="${sessionScope.id}"/>--%>
 <c:set var="loginId" value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('id')}"/>
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
 <c:set var="loginOut" value="${loginId=='' ? 'Login' : 'Logout'}"/>

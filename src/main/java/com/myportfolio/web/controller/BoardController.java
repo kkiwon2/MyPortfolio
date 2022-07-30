@@ -1,9 +1,11 @@
 package com.myportfolio.web.controller;
 
 import com.myportfolio.web.domain.BoardDto;
+import com.myportfolio.web.domain.CommentDto;
 import com.myportfolio.web.domain.PageHandler;
 import com.myportfolio.web.domain.SearchCondition;
 import com.myportfolio.web.service.BoardService;
+import com.myportfolio.web.service.CommentService;
 import org.checkerframework.common.reflection.qual.GetMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,29 +30,26 @@ public class BoardController {
     @Autowired
     BoardService boardService;
 
+    // 게시판 목록
     //  localhost:/board/list GET
     @GetMapping("/list")
     public String list(SearchCondition sc, Model m, HttpServletRequest request) {
 
         //Board 게시판에 가기전에 로그인을 체크
         if (!loginCheck(request)) {
-            System.out.println("request.getRequestURL() = " + request.getRequestURL()); //어디로 요청했는지 알 수 있음 to
-            System.out.println("request.getRequestURI() = " + request.getRequestURI()); //이건 Host빼고 ContextRoot부터나옴
+//            System.out.println("request.getRequestURL() = " + request.getRequestURL()); //어디로 요청했는지 알 수 있음 to
+//            System.out.println("request.getRequestURI() = " + request.getRequestURI()); //이건 Host빼고 ContextRoot부터나옴
             //http://localhost/web/login/login?toURL=http://localhost/web/board/list
-
             HttpSession session = request.getSession();
             return "redirect:/login/login?toURL=" + request.getRequestURL();  // 로그인을 안했으면 로그인 화면으로 이동
             // index페이지에서 로그인안한상태에서 board누르면 로그인하고 board로 바로가기 위해서는 to정보가 필요함
         }
 
         try {
-            System.out.println("sc = " + sc);
-
             int totalCnt = boardService.getSearchResultCnt(sc);
             m.addAttribute("totalCnt", totalCnt);
 
             PageHandler pageHandler = new PageHandler(totalCnt, sc);
-            System.out.println("pageHandler = " + pageHandler);
             
             List<BoardDto> list = boardService.getSearchResultPage(sc);
             m.addAttribute("list", list);
@@ -58,6 +57,7 @@ public class BoardController {
 
             //2022/07/24 새벽1시
             Instant startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
+            System.out.println("startOfToday = " + startOfToday);
             m.addAttribute("startOfToday", startOfToday.toEpochMilli());
             
         } catch (Exception e) {
@@ -66,6 +66,7 @@ public class BoardController {
         return "boardList"; // 로그인을 한 상태이면, 게시판 화면으로 이동
     }
 
+    //ID체크
     private boolean loginCheck(HttpServletRequest request) {
         // 1. 세션을 얻어서
         HttpSession session = request.getSession();
@@ -73,6 +74,7 @@ public class BoardController {
         return session.getAttribute("id") != null;
     }
 
+    //게시글 읽기
     @GetMapping("/read")
     public String read(SearchCondition sc, Integer bno, Integer page, Integer pageSize, Model m) {
         try {
@@ -87,6 +89,7 @@ public class BoardController {
         return "board";
     }
 
+    //게시글삭제
     @PostMapping("/remove")
     public String remove(Integer bno, Integer page, Integer pageSize, Model m,
                          HttpSession session, String test,
@@ -110,6 +113,7 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
+
     @GetMapping("/write")
     public String write(Model m) {
         m.addAttribute("mode", "new");
@@ -125,6 +129,7 @@ public class BoardController {
             int rowCnt = boardService.write(boardDto);
             if (rowCnt != 1)
                 throw new Exception("write failed");
+            rattr.addFlashAttribute("mode","new");
             rattr.addFlashAttribute("msg", "WRT_OK");
             return "redirect:/board/list";
         } catch (Exception e) {
@@ -144,6 +149,7 @@ public class BoardController {
             int rowCnt = boardService.modify(boardDto);
             if (rowCnt != 1)
                 throw new Exception("Modify failed");
+            rattr.addFlashAttribute("mode", "new");
             rattr.addFlashAttribute("msg", "MOD_OK");
             return "redirect:/board/list";
         } catch (Exception e) {

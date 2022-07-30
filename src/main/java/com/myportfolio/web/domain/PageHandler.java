@@ -25,7 +25,7 @@ public class PageHandler {
         doPaging(totalCnt, sc);
     }
 
-    //페이징 계산을 하는데 필요한 생성자 - 게시물의 총 갯수, 현재페이지, 화면에 보여줄 게시물 갯수
+    //페이징 계산을 하는데 필요한 메서드 - 게시물의 총 갯수, 현재페이지, 화면에 보여줄 게시물 갯수
     public void doPaging(int totalCnt, SearchCondition sc){
         this.totalCnt = totalCnt;
 

@@ -9,19 +9,17 @@ public class UserDto {
     private String pwd;
     private String name;
     private String email;
-//    @DateTimeFormat(pattern="yyyy/MM/dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date birth;
-    private String sns;
     private Date reg_date;
 
     public UserDto(){}
-    public UserDto(String id, String pwd, String name, String email, Date birth, String sns) {
+    public UserDto(String id, String pwd, String name, String email, Date birth) {
         this.id = id;
         this.pwd = pwd;
         this.name = name;
         this.email = email;
         this.birth = birth;
-        this.sns = sns;
     }
 
     @Override
@@ -29,12 +27,12 @@ public class UserDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserDto user = (UserDto) o;
-        return id.equals(user.id) && Objects.equals(pwd, user.pwd) && Objects.equals(name, user.name) && Objects.equals(email, user.email) && Objects.equals(birth, user.birth) && Objects.equals(sns, user.sns);
+        return id.equals(user.id) && Objects.equals(pwd, user.pwd) && Objects.equals(name, user.name) && Objects.equals(email, user.email) && Objects.equals(birth, user.birth);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, pwd, name, email, birth, sns, reg_date);
+        return Objects.hash(id, pwd, name, email, birth, reg_date);
     }
 
     @Override
@@ -45,7 +43,6 @@ public class UserDto {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", birth=" + birth +
-                ", sns='" + sns + '\'' +
                 ", reg_date=" + reg_date +
                 '}';
     }
@@ -88,14 +85,6 @@ public class UserDto {
 
     public void setBirth(Date birth) {
         this.birth = birth;
-    }
-
-    public String getSns() {
-        return sns;
-    }
-
-    public void setSns(String sns) {
-        this.sns = sns;
     }
 
     public Date getReg_date() {

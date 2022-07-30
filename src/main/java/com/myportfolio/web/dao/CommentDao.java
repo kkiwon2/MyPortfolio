@@ -3,6 +3,7 @@ package com.myportfolio.web.dao;
 import com.myportfolio.web.domain.CommentDto;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CommentDao {
     int deleteAll(Integer bno) // int delete(String statement)
@@ -25,4 +26,8 @@ public interface CommentDao {
 
     int update(CommentDto dto) throws Exception // int update(String statement, Object parameter)
     ;
+
+    List<CommentDto> selectPage(Map map) throws Exception;
+
+
 }
