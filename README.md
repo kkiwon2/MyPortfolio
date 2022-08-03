@@ -52,6 +52,7 @@
   #### 3.게시글 조회
   다른사람이 작성한 게시글 조회의 경우 "글쓰기"버튼과, "목록"버튼만 존재합니다.
   ![게시글 조회1](https://user-images.githubusercontent.com/75352561/182563206-4f0dd646-b254-4f5d-872d-50daa2ba6a35.JPG)
+  
   본인이 작성한 게시글 조회의 경우 "수정","삭제"버튼이 추가로 존재합니다.
   ![게시글 조회2](https://user-images.githubusercontent.com/75352561/182563218-d6d4e6a4-01de-45ce-80c5-78914dfe6694.JPG)
 
