@@ -53,6 +53,8 @@
 #### 게시글 관련 API
 ![image](https://user-images.githubusercontent.com/75352561/182540779-71443375-0cd2-454c-bf4b-8a03821025e9.png)
 #### 회원 관련 API
-
+![image](https://user-images.githubusercontent.com/75352561/182545876-480ad2ec-2882-49bf-ae14-92c679be128c.png)
 #### 댓글 관련 API
+![image](https://user-images.githubusercontent.com/75352561/182545920-8a6de42b-77d1-43e0-a0ef-e874fa55ebb9.png)
+
 
