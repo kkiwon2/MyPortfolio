@@ -48,6 +48,10 @@
 ### 1. 패키지 구조
 
 ### 2. DB 설계
+
+![ERD](https://user-images.githubusercontent.com/75352561/182555467-f353b2e9-0473-4de5-af20-58bc747a7a90.JPG)
+
+
 ### 3. API 설계
 
 #### 게시글 관련 API
