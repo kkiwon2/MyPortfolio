@@ -68,7 +68,8 @@
  </details>
  
  <details>
-  <symmary>회원 관련 화면</summary>
+  <summary>회원 관련 화면</summary>
+   <h4> 1.회원 관련 화면</h4>
  </details>
 
 # 구조 및 설계
