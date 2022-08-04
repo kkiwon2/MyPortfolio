@@ -15,7 +15,7 @@
   + DB 설계
   + API 설계
  
-+ 개발 내용
++ 주요 코드
 
 + 마치며
   + 프로젝트 보완사항
@@ -97,4 +97,4 @@
 #### 댓글 관련 API
 ![image](https://user-images.githubusercontent.com/75352561/182545920-8a6de42b-77d1-43e0-a0ef-e874fa55ebb9.png)
 
-
+# 주요 
