@@ -71,11 +71,11 @@
   <summary>회원 관련 화면</summary>
    <h4> 1.회원 가입 화면</h4>
    <img src=https://user-images.githubusercontent.com/75352561/182831742-c192dbb6-c6f6-4f5f-a942-8494128827e6.JPG />
-   <h4> 2.회원 가입 유효성검사1
+   <h4> 2.회원 가입 유효성검사1 </h4>
    <img src=https://user-images.githubusercontent.com/75352561/182831876-22342a8a-9b43-47a3-bd86-f482173062ea.JPG />
-   <h4> 3.회원 가입 유효성검사2
+   <h4> 3.회원 가입 유효성검사2 </h4>
    <img src=https://user-images.githubusercontent.com/75352561/182831972-c0d8d86d-7ecb-4499-ba5b-e65f3e460c1b.JPG />
-   <h4> 4.회원 정보 수정
+   <h4> 4.회원 정보 수정</h4>
    <img src=https://user-images.githubusercontent.com/75352561/182832033-79aaa36f-7f13-4e2b-bb9a-2b6801239762.JPG />
  </details>
 
