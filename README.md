@@ -48,16 +48,19 @@
     <img src=https://user-images.githubusercontent.com/75352561/182808791-403fab2f-3eec-4127-b674-ac239a8e1351.JPG />
     <h4> 2.게시글 검색 </h4>
     <img src=https://user-images.githubusercontent.com/75352561/182809213-01c403e6-215a-4288-b882-40ce2c309a99.JPG />
-    <h4> 3-1게시글 조회 - 다른사람이 작성한 게시글 조회 </h4>
+    <h4> 3-1게시글 조회 </h4>
       다른사람이 작성한 게시글 조회의 경우 "글쓰기"버튼과, "목록"버튼만 존재합니다.
     <img src=https://user-images.githubusercontent.com/75352561/182809323-843db8a2-9a02-4f6d-bf1f-56d31d353016.JPG />
-    <h4> 3-2게시글 조회 - 본인이 작성한 게시글 조회
+    <h4> 3-2게시글 조회
       본인이 작성한 게시글 조회의 경우 "수정","삭제"버튼이 추가로 존재합니다.
     <img src=https://user-images.githubusercontent.com/75352561/182809619-6bec1b18-54f1-4447-b98c-0fbca53f9747.JPG />
 </details>
 
  <details>
   <summary>댓글 관련 화면</summary>
+  <h4> 1.댓글 입력 </h4>
+  <img src=https://user-images.githubusercontent.com/75352561/182812007-7c6a7539-3e73-4b77-afd6-1c2840052cf3.JPG />
+/>
  </details>
  
  <details>
