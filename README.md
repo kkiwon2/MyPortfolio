@@ -42,21 +42,28 @@
   + 기타 : VS code, Git, AWS
 
  ### 4. 실행 화면
- ▶ 게시글 관련 화면
-  #### 1.게시글 전체목록
-  ![게시글 전체목록1](https://user-images.githubusercontent.com/75352561/182563108-6153f9bf-c5d3-48a0-9beb-968a0e5b0958.JPG)
-  #### 2.게시글 검색(제목)
-  제목으로 검색한 게시글 목록 화면입니다.
-  ![게시글 페이징 전체목록2](https://user-images.githubusercontent.com/75352561/182563833-22bd1ba4-d56a-4d3c-89ba-bee00d62f072.JPG)
+ <details>
+    <summary>게시글 관련 화면</summary>
+    <h4> 1.게시글 전체목록 </h4>
+    <img src=https://user-images.githubusercontent.com/75352561/182808791-403fab2f-3eec-4127-b674-ac239a8e1351.JPG />
+    <h4> 2.게시글 검색 </h4>
+    <img src=https://user-images.githubusercontent.com/75352561/182809213-01c403e6-215a-4288-b882-40ce2c309a99.JPG />
+    <h4> 3-1게시글 조회 - 다른사람이 작성한 게시글 조회 </h4>
+      다른사람이 작성한 게시글 조회의 경우 "글쓰기"버튼과, "목록"버튼만 존재합니다.
+    <img src=https://user-images.githubusercontent.com/75352561/182809323-843db8a2-9a02-4f6d-bf1f-56d31d353016.JPG />
+    <h4> 3-2게시글 조회 - 본인이 작성한 게시글 조회
+      본인이 작성한 게시글 조회의 경우 "수정","삭제"버튼이 추가로 존재합니다.
+    <img src=https://user-images.githubusercontent.com/75352561/182809619-6bec1b18-54f1-4447-b98c-0fbca53f9747.JPG />
+</details>
 
-  #### 3.게시글 조회
-  다른사람이 작성한 게시글 조회의 경우 "글쓰기"버튼과, "목록"버튼만 존재합니다.
-  ![게시글 조회1](https://user-images.githubusercontent.com/75352561/182563206-4f0dd646-b254-4f5d-872d-50daa2ba6a35.JPG)
-  
-  본인이 작성한 게시글 조회의 경우 "수정","삭제"버튼이 추가로 존재합니다.
-  ![게시글 조회2](https://user-images.githubusercontent.com/75352561/182563218-d6d4e6a4-01de-45ce-80c5-78914dfe6694.JPG)
+ <details>
+  <summary>댓글 관련 화면</summary>
+ </details>
+ 
+ <details>
+  <symmary>회원 관련 화면</summary>
+ </details>
 
-  
 # 구조 및 설계
 
 ### 1. 패키지 구조
