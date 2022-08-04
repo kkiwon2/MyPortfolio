@@ -62,9 +62,9 @@
   <img src=https://user-images.githubusercontent.com/75352561/182828695-70cbd5f3-ea38-4d91-851f-69539894cd83.JPG />
   <h4> 2.댓글 목록 </h4>
   <img src=https://user-images.githubusercontent.com/75352561/182828831-67b8b814-aab5-4f85-bb13-7fde2cbf3ddc.JPG />
+  <h4> 3.댓글 목록 </h4>
   다른 사람이 작성한 댓글의 경우 밑에와 같이 수정,삭제 버튼이 없습니다.
   <img src=https://user-images.githubusercontent.com/75352561/182829098-7240c819-4994-4fdc-a909-9d6bbd34e85f.JPG />
-
  </details>
  
  <details>
