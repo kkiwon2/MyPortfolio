@@ -98,3 +98,10 @@
 ![image](https://user-images.githubusercontent.com/75352561/182545920-8a6de42b-77d1-43e0-a0ef-e874fa55ebb9.png)
 
 # 주요 코드
+
+### 1. 게시판 관련 코드
+
+### 2. 회원 관련 코드
+  
+### 3. 댓글 관련 코드
+  
