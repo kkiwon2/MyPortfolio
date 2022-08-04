@@ -59,8 +59,12 @@
  <details>
   <summary>댓글 관련 화면</summary>
   <h4> 1.댓글 입력 </h4>
-  <img src=https://user-images.githubusercontent.com/75352561/182812007-7c6a7539-3e73-4b77-afd6-1c2840052cf3.JPG />
-/>
+  <img src=https://user-images.githubusercontent.com/75352561/182828695-70cbd5f3-ea38-4d91-851f-69539894cd83.JPG />
+  <h4> 2.댓글 목록 </h4>
+  <img src=https://user-images.githubusercontent.com/75352561/182828831-67b8b814-aab5-4f85-bb13-7fde2cbf3ddc.JPG />
+  다른 사람이 작성한 댓글의 경우 밑에와 같이 수정,삭제 버튼이 없습니다.
+  <img src=https://user-images.githubusercontent.com/75352561/182829098-7240c819-4994-4fdc-a909-9d6bbd34e85f.JPG />
+
  </details>
  
  <details>
