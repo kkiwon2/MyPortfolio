@@ -28,32 +28,27 @@ public class CommentController {
     //댓글 목록보여주기
     @GetMapping("/comments")        // /comments?bno=1080
     @ResponseBody
-    public List<CommentDto> list(Integer bno, Model m,  Integer page, Integer pageSize) {
-            if(page==null) page=1;
-            if(pageSize==null) pageSize=10;
+    public List<CommentDto> list(Integer bno, Integer page, Integer pageSize) {
+        if (page == null) page = 1;
+        if (pageSize == null) pageSize = 10;
 
         List<CommentDto> list = null;
         try {
-            /////// 07-29에 추가(페이징처리 고치는중)
-            int totalCnt = service.getCount(bno);
-            CommentPageHandler commentPageHandler = new CommentPageHandler(totalCnt, page, pageSize);
-            CommentDto commentDto = new CommentDto();
-            commentDto.commentPageHandler = commentPageHandler;
 
             Map map = new HashMap();
-            map.put("offset", (page-1)*pageSize);
+            map.put("offset", (page - 1) * pageSize);
             map.put("pageSize", pageSize);
-            map.put("bno",bno);
+            map.put("bno", bno);
             list = service.selectPage(map);
-            m.addAttribute("list", list );
-            commentPageHandler = list.get(0).commentPageHandler;
 
-            m.addAttribute("ph", commentPageHandler);
-            ///////
+            int totalCnt = service.getCount(bno);
 
-            //아래꺼 주석처리하고 위에꺼 써봄 0729
-//            list = service.getList(bno);
-//            System.out.println("list = " + list);
+            //댓글목록이 0개라면 페이징 목록을 만들필요없음
+            if(totalCnt != 0) {
+                list.get(0).setCommentPageHandler(new CommentPageHandler(totalCnt, page, pageSize));
+//                System.out.println("list.get(0) = " + list.get(0));
+            }
+
             return list;
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,7 +61,7 @@ public class CommentController {
     @ResponseBody
     @DeleteMapping("/comments/{cno}")
     public ResponseEntity<String> remove(@PathVariable Integer cno, Integer bno, HttpSession session) { //자원이 리소스로 할당
-        String commenter = (String)session.getAttribute("id");
+        String commenter = (String) session.getAttribute("id");
         try {
             int rowCnt = service.remove(cno, bno, commenter);
             if (rowCnt != 1)
@@ -97,8 +92,9 @@ public class CommentController {
         }
     }
 
+    //댓글 수정
     @ResponseBody
-    @PatchMapping("/comments/{cno}")   // /comments?bno=644
+    @PatchMapping("/comments/{cno}")   // /comments/{cno}
     public ResponseEntity<String> modify(@PathVariable Integer cno, @RequestBody CommentDto dto, HttpSession session) {
         //        String commenter = (String)session.getAttribute("id");
         String commenter = "asdf";

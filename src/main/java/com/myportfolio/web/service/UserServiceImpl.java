@@ -18,4 +18,8 @@ public class UserServiceImpl implements UserService {
     public UserDto selectUser(String id) throws Exception {
         return userDao.selectUser(id);
     }
+
+    public int updateUser(UserDto user) throws Exception{
+        return userDao.updateUser(user);
+    }
 }

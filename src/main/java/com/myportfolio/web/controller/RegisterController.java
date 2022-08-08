@@ -4,21 +4,19 @@ import com.myportfolio.web.domain.UserDto;
 import com.myportfolio.web.error.UserValidator;
 import com.myportfolio.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
+
 
 @Controller // ctrl+shift+o 자동 import
 @RequestMapping("/register")
@@ -30,6 +28,7 @@ public class RegisterController {
     //타입을 변환할 때 우리가 등록한 registerCustomEditor를 먼저 확인한다.
     @InitBinder
     public void toDate(WebDataBinder binder) {
+        System.out.println("toDate가 가장 먼저 실해오디는거 맞노?");
 //        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 //        binder.registerCustomEditor(Date.class, new CustomDateEditor(df, false));
         binder.setValidator(new UserValidator()); // UserValidator를 WebDataBinder의 로컬 validator로 등록 - 자동검증
@@ -41,29 +40,25 @@ public class RegisterController {
         return "registerForm"; // WEB-INF/views/registerForm.jsp
     }
 
-    //회원가입 처리
-    @PostMapping("/add")
-    public String add(@Valid UserDto user, BindingResult result, Model m, RedirectAttributes rattr) {
-        System.out.println("RegisterController : add()메서드");
-        System.out.println("result=" + result);
-        System.out.println("user=" + user);
 
-//        수동검증 - 위에 initBinder에 setValidator로 자동검증으로 등록함
+//        수동검증 -> 위에 initBinder에 setValidator로 자동검증으로 등록함
 //        기존 유효성 검사대신 검증기로 대체 -> if(!isValid(User)) { String msg = URLEncoder.encode("id를 잘못 입력","utf-8")
 //        UserValidator userValidator = new UserValidator();
 //        userValidator.validate(user, result);   //BindingResult인페이스는 Error인터페이스의 자손이라 2번째 매개변수로 넣어도됨
-
-        //1. User객체를 검증한 결과 에러가없다면
+    //회원가입 처리
+    @PostMapping("/add")
+    public String add(@Valid UserDto user, BindingResult result, Model m) {
+        System.out.println("RegisterController : add()메서드");
+        System.out.println("result=" + result);
+        System.out.println("user=" + user);
         if (!result.hasErrors()) {
-            // 2. DB에 신규회원 정보를 저장
             try {
-
+                if(userService.selectUser(user.getId())!=null)
+                    throw new Exception("ID중복");
                 int rowCnt = userService.insertUser(user);
-                //2022/07/28 새벽1시
-                Instant startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
-                System.out.println("startOfToday = " + startOfToday);
-                m.addAttribute("startOfToday", startOfToday.toEpochMilli());
-                return "registerInfo";
+                if (rowCnt == FAIL)
+                    throw new Exception();
+                return "redirect:/";
             } catch (Exception e) {
                 e.printStackTrace();
                 m.addAttribute("msg", "중복된 ID입니다. 다시 입력해주세요.");
@@ -71,9 +66,58 @@ public class RegisterController {
                 return "registerForm";
             }//catch
         }// if (!result.hasErrors())
-
-        //1. User객체를 검증한 결과 에러가 있으면, registerForm을 이용해서 에러를 보여줘야 함.
+        m.addAttribute("user", user);
         return "registerForm";
     }//@PostMapping("/add")
+
+    @GetMapping("/update")
+    public String update(HttpServletRequest request, Model model) {
+        try {
+            HttpSession session = request.getSession();
+            String id = (String) session.getAttribute("id");
+            UserDto user = userService.selectUser(id);
+
+
+            if (user.getId() != null) {
+                model.addAttribute("user", user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "registerInfo";
+    }//    @GetMapping("/update")
+
+    @PostMapping("/update")
+    public String update(UserDto user, Model m) {
+        try {
+            int error = userService.updateUser(user);
+            if (error != 1) {
+                m.addAttribute("msg", "회원정보 수정에 실패했습니다.");
+                m.addAttribute("userDto", user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/register/update";
+        }
+        m.addAttribute("회원정보 수정을 완료했습니다.");
+        return "index";
+    }
+
+    //ID중복검사
+    @ResponseBody
+    @GetMapping("/validate")
+    public String list(String id) {
+        System.out.println("id = " + id);
+        String msg = "";
+        try {
+            msg = URLEncoder.encode("사용 가능한 아이디 입니다.", "utf-8");
+            userService.selectUser(id).getId();
+            msg = URLEncoder.encode("중복된 아이디 입니다.", "utf-8");
+        } catch (Exception e) {
+            return msg;
+        }
+        return msg;
+    }
 
 }

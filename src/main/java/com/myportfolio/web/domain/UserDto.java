@@ -12,14 +12,24 @@ public class UserDto {
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date birth;
     private Date reg_date;
+    private Integer gender;
 
     public UserDto(){}
-    public UserDto(String id, String pwd, String name, String email, Date birth) {
+    public UserDto(String id, String pwd, String name, String email, Date birth, Integer gender) {
         this.id = id;
         this.pwd = pwd;
         this.name = name;
         this.email = email;
         this.birth = birth;
+        this.gender = gender;
+    }
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
     }
 
     @Override
@@ -37,13 +47,14 @@ public class UserDto {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "UserDto{" +
                 "id='" + id + '\'' +
                 ", pwd='" + pwd + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", birth=" + birth +
                 ", reg_date=" + reg_date +
+                ", gender=" + gender +
                 '}';
     }
 

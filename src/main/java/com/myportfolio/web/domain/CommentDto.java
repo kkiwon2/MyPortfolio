@@ -13,8 +13,17 @@ public class CommentDto {
    private String commenter;
    private Date reg_date;
    private Date up_date;
+   private CommentPageHandler commentPageHandler;
 
-   public CommentDto() {}
+    public CommentPageHandler getCommentPageHandler() {
+        return commentPageHandler;
+    }
+
+    public void setCommentPageHandler(CommentPageHandler commentPageHandler) {
+        this.commentPageHandler = commentPageHandler;
+    }
+
+    public CommentDto() {}
     public CommentDto(Integer bno, Integer pcno, String comment, String commenter) {
         this.bno = bno;
         this.pcno = pcno;
@@ -88,6 +97,7 @@ public class CommentDto {
                 ", commenter='" + commenter + '\'' +
                 ", reg_date=" + reg_date +
                 ", up_date=" + up_date +
+                ", commentPageHandler=" + commentPageHandler +
                 '}';
     }
 
@@ -104,5 +114,5 @@ public class CommentDto {
         return Objects.hash(cno, bno, pcno, comment, commenter);
     }
 
-    public CommentPageHandler commentPageHandler;
+
 }

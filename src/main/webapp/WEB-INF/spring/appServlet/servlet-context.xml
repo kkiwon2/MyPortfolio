@@ -25,13 +25,19 @@
 
     <!-- ROOT(/)로 방문하면 index.jsp호출 -->
     <view-controller path="/" view-name="index"/>
+
     <!--RegisterController에서 처리하기보다는 여기에 그냥 등록함 path에 대한 주소를 view-name에 적은 맵핑될 jsp파일 이름 GET방식만됨-->
-    <view-controller path="/register/add" view-name="registerForm"/>
+    <!--    <view-controller path="/register/add" view-name="registerForm"/>-->
+
+    <!-- 스프링에서 업로드 처리는 MultipartResolver타입의 객체를 Bean으로 등록해야한다. 첨부파일을 처리하는 빈을 설정할 때 id는 'multipartResolver'-->
+    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+
+    </beans:bean>
 
     <beans:bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <beans:property name="basenames">
             <beans:list>
-                <beans:value>error_message</beans:value> <!-- /src/main/resources/error_message.properties -->
+                <beans:value>error_message</beans:value>
             </beans:list>
         </beans:property>
         <beans:property name="defaultEncoding" value="UTF-8"/>

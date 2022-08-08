@@ -5,6 +5,8 @@
 <c:set var="loginId" value="${sessionScope.id}"/>
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
 <c:set var="loginOut" value="${loginId=='' ? 'Login' : 'Logout'}"/>
+<c:set var="loginOutLink2" value="${loginId=='' ? '/register/add' : '/register/update'}"/>
+<c:set var="loginOut2" value="${loginId=='' ? 'Sign in' : 'Info'}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +34,7 @@
         <li><a class="menu-a" href="<c:url value='/'/>">Home</a></li>
         <li><a class="menu-a" href="<c:url value='/board/list'/>">Board</a></li>
         <li><a class="menu-a" href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
-        <li><a class="menu-a" href="<c:url value='/register/add'/>">Sign in</a></li>
+        <li><a class="menu-a" href="<c:url value='${loginOutLink2}'/>">${loginOut2}</a></li>
         <li><a class="menu-a" href=""><i class="fa fa-search"></i></a></li>
     </ul>
 </div>

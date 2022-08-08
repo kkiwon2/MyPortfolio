@@ -50,14 +50,14 @@ public class BoardController {
             m.addAttribute("totalCnt", totalCnt);
 
             PageHandler pageHandler = new PageHandler(totalCnt, sc);
-            
+
             List<BoardDto> list = boardService.getSearchResultPage(sc);
             m.addAttribute("list", list);
             m.addAttribute("ph", pageHandler);
 
             //2022/07/24 새벽1시
             Instant startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
-            System.out.println("startOfToday = " + startOfToday);
+//            System.out.println("startOfToday = " + startOfToday);
             m.addAttribute("startOfToday", startOfToday.toEpochMilli());
             
         } catch (Exception e) {

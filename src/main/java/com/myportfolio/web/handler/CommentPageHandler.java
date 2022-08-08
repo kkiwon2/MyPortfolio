@@ -21,7 +21,7 @@ public class CommentPageHandler {
         this.pageSize_C = pageSize_C;
 
         //총 페이지 갯수 구하기
-        totalCnt_C = (int)Math.ceil(totalCnt_C / (double)pageSize_C);
+        totalPage_C = (int)Math.ceil(totalCnt_C / (double)pageSize_C);
         //네비게이션바 첫번째 페이지 구하기
         beginPage_C = (page_C-1) / naviSize_C * naviSize_C +1;
         //네비게이션바 마지막
@@ -116,4 +116,6 @@ public class CommentPageHandler {
     public void setShowNext_C(boolean showNext_C) {
         this.showNext_C = showNext_C;
     }
+
+
 }
