@@ -5,7 +5,7 @@
     <title>error.jsp</title>
 </head>
 <body>
-<h1>예외가 발생했습니다.</h1>
+<h1>예외가 발생했습니다test.</h1>
 발생한 예외 : ${ex}<br>
 예외 메시지 : ${ex.message}<br>
 <ol>
