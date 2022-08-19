@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 public class PerformanceFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        System.out.println("PerformanceFilter 초기화");
         // 초기화 작업
     }
 
@@ -34,13 +35,14 @@ public class PerformanceFilter implements Filter {
         String method = req.getMethod();
 
         //어디서 요청(from)을 보냈는지 알수 있으며, 전송방식(get,post)과 어디로 요청(to)을 했는지 출력
-        System.out.print("["+referer+"] -> " + method + "[" + req.getRequestURI() +"]");
-        System.out.println(" 소요시간="+(System.currentTimeMillis()-startTime)+"ms");
+        System.out.print("["+referer+"] --> " + method + "[" + req.getRequestURI() +"]");
+        System.out.println(" 요청 소요시간 = "+(System.currentTimeMillis()-startTime)+"ms");
     }
 
     @Override
     public void destroy() {
         // 정리 작업
+        System.out.println("PerformanceFilter 종료");
     }
 
 }

@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.net.URLEncoder;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @Controller // ctrl+shift+o 자동 import
@@ -28,7 +30,8 @@ public class RegisterController {
     //타입을 변환할 때 우리가 등록한 registerCustomEditor를 먼저 확인한다.
     @InitBinder
     public void toDate(WebDataBinder binder) {
-        System.out.println("toDate가 가장 먼저 실해오디는거 맞노?");
+        System.out.println("RegisertController toDate실행");
+        System.out.println("binder = " + binder);
 //        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 //        binder.registerCustomEditor(Date.class, new CustomDateEditor(df, false));
         binder.setValidator(new UserValidator()); // UserValidator를 WebDataBinder의 로컬 validator로 등록 - 자동검증
@@ -108,9 +111,15 @@ public class RegisterController {
     @ResponseBody
     @GetMapping("/validate")
     public String list(String id) {
-        System.out.println("id = " + id);
+        System.out.println("중복검사 ID = " + id);
         String msg = "";
         try {
+            Pattern idpwd_pattern = Pattern.compile("^[A-Za-z0-9]{4,12}$");
+            Matcher matcher = idpwd_pattern.matcher(id);
+            if(!matcher.matches()) {
+                msg = URLEncoder.encode("아이디는 4~12 영대문자와 숫자만 가능합니다.", "utf-8");
+                throw new Exception();
+            }
             msg = URLEncoder.encode("사용 가능한 아이디 입니다.", "utf-8");
             userService.selectUser(id).getId();
             msg = URLEncoder.encode("중복된 아이디 입니다.", "utf-8");

@@ -52,7 +52,9 @@
                 <input type="text" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}" placeholder="검색어를 입력해주세요">
                 <input type="submit" class="search-button" value="검색">
             </form>
-            <button id="writeBtn" class="btn-write" onclick="location.href='<c:url value="/board/write"/>'"><i class="fa fa-pencil"></i> 글쓰기</button>
+            <button id="writeBtn" class="btn-write" onclick="location.href='<c:url value="/board/write"/>'">
+                <i class="fa fa-pencil"></i> 글쓰기
+            </button>
         </div>
 
         <table>
@@ -65,9 +67,13 @@
             </tr>
             <c:forEach var="boardDto" items="${list}">
                 <tr>
-                    <td class="no">${boardDto.bno}</td>
-                    <td class="title"><a href="<c:url value="/board/read${ph.sc.getQueryString(ph.sc.page)}&bno=${boardDto.bno}"/>"><c:out value="${boardDto.title}"/></a></td>
-                    <td class="writer">${boardDto.writer}</td>
+                    <td class="no" style="text-align:center">${boardDto.bno}</td>
+                    <td class="title" style="text-align:center">
+                        <a href="<c:url value="/board/read${ph.sc.getQueryString(ph.sc.page)}&bno=${boardDto.bno}"/>">
+                            <c:out value="${boardDto.title}"/>
+                        </a>
+                    </td>
+                    <td class="writer" style="text-align:center">${boardDto.writer}</td>
                     <c:choose>
                         <c:when test="${boardDto.reg_date.time >= startOfToday}">
                             <td class="regdate"><fmt:formatDate value="${boardDto.reg_date}" pattern="HH:mm" type="time"/></td>
@@ -76,7 +82,7 @@
                             <td class="regdate"><fmt:formatDate value="${boardDto.reg_date}" pattern="yyyy-MM-dd" type="date"/></td>
                         </c:otherwise>
                     </c:choose>
-                    <td class="viewcnt">${boardDto.view_cnt}</td>
+                    <td class="viewcnt" style="text-align:center" >${boardDto.view_cnt}</td>
                 </tr>
             </c:forEach>
         </table>

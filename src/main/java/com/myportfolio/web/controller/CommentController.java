@@ -1,15 +1,11 @@
 package com.myportfolio.web.controller;
 
 import com.myportfolio.web.domain.CommentDto;
-import com.myportfolio.web.domain.PageHandler;
-import com.myportfolio.web.domain.SearchCondition;
 import com.myportfolio.web.handler.CommentPageHandler;
 import com.myportfolio.web.service.CommentService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;

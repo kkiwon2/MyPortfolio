@@ -1,7 +1,7 @@
 package com.myportfolio.web.dao;
 
 import com.myportfolio.web.domain.BoardDto;
-import com.myportfolio.web.domain.SearchCondition;
+import com.myportfolio.web.handler.SearchCondition;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -205,22 +205,25 @@ public class BoardDaoImplTest {
         assertTrue(boardDto.getView_cnt() == 2);
     }
 
+
+    //게시물 검색 테스트
     @Test
     public void searchSelectPageTest() throws Exception {
         boardDao.deleteAll();
         for(int i =1; i <=20; i++){
-            BoardDto boardDto = new BoardDto("title"+i, "안녕하세요.", "asdf"+i);
+            BoardDto boardDto = new BoardDto("title"+i, "안녕하세요.", "asdf");
             boardDao.insert(boardDto);
         }
-        SearchCondition sc = new SearchCondition(1,10,"asdf2","W");
+        SearchCondition sc = new SearchCondition(1,10,"title2","T");
         List<BoardDto> list = boardDao.searchSelectPage(sc);
         System.out.println("list = " + list);
         assertTrue(list.size()==2);
 
     }
 
+    //게시물 검색 카운트 테스트
     @Test
-    public void searchResultCount() throws Exception {
+    public void SearchResultCnt() throws Exception {
         boardDao.deleteAll();
         for(int i =1; i <=20; i++){
             BoardDto boardDto = new BoardDto("title"+i, "안녕하세요.", "asdf");

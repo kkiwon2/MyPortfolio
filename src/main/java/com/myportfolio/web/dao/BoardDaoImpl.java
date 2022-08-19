@@ -1,7 +1,7 @@
 package com.myportfolio.web.dao;
 
 import com.myportfolio.web.domain.BoardDto;
-import com.myportfolio.web.domain.SearchCondition;
+import com.myportfolio.web.handler.SearchCondition;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -71,8 +71,7 @@ public class BoardDaoImpl implements BoardDao {
 
     @Override
     public int searchResultCnt(SearchCondition sc) throws Exception {
-        System.out.println("sc in searchResultCnt() = " + sc);
-        System.out.println("session = " + session);
+        System.out.println("BoardDaoImpl in searchResultCnt() = " + sc);
         return session.selectOne(namespace+"searchResultCnt", sc);
     } // T selectOne(String statement, Object parameter)
 

@@ -170,6 +170,8 @@ local.properties
 .scala_dependencies
 .worksheet
 
+.src/main/webapp/WEB-INF/spring/root-context.xml
+
 # Uncomment this line if you wish to ignore the project description file.
 # Typically, this file would be tracked if it contains build/dependency configurations:
 #.project

@@ -1,12 +1,9 @@
 package com.myportfolio.web.controller;
 
 import com.myportfolio.web.domain.BoardDto;
-import com.myportfolio.web.domain.CommentDto;
-import com.myportfolio.web.domain.PageHandler;
-import com.myportfolio.web.domain.SearchCondition;
+import com.myportfolio.web.handler.PageHandler;
+import com.myportfolio.web.handler.SearchCondition;
 import com.myportfolio.web.service.BoardService;
-import com.myportfolio.web.service.CommentService;
-import org.checkerframework.common.reflection.qual.GetMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,9 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/board")
@@ -35,23 +30,23 @@ public class BoardController {
     @GetMapping("/list")
     public String list(SearchCondition sc, Model m, HttpServletRequest request) {
 
-        //Board 게시판에 가기전에 로그인을 체크
+        //Board 게시판에 가기전에 로그인을 체크 - 로그인을 하지 않았다면
         if (!loginCheck(request)) {
 //            System.out.println("request.getRequestURL() = " + request.getRequestURL()); //어디로 요청했는지 알 수 있음 to
 //            System.out.println("request.getRequestURI() = " + request.getRequestURI()); //이건 Host빼고 ContextRoot부터나옴
             //http://localhost/web/login/login?toURL=http://localhost/web/board/list
-            HttpSession session = request.getSession();
+//            HttpSession session = request.getSession();   //2022-08-13 주석처리
             return "redirect:/login/login?toURL=" + request.getRequestURL();  // 로그인을 안했으면 로그인 화면으로 이동
             // index페이지에서 로그인안한상태에서 board누르면 로그인하고 board로 바로가기 위해서는 to정보가 필요함
         }
 
         try {
-            int totalCnt = boardService.getSearchResultCnt(sc);
+            int totalCnt = boardService.SearchResultCnt(sc);
             m.addAttribute("totalCnt", totalCnt);
 
             PageHandler pageHandler = new PageHandler(totalCnt, sc);
 
-            List<BoardDto> list = boardService.getSearchResultPage(sc);
+            List<BoardDto> list = boardService.SearchResultPage(sc);
             m.addAttribute("list", list);
             m.addAttribute("ph", pageHandler);
 
@@ -113,7 +108,7 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
-
+    //게시글 읽기
     @GetMapping("/write")
     public String write(Model m) {
         m.addAttribute("mode", "new");
@@ -130,11 +125,14 @@ public class BoardController {
             if (rowCnt != 1)
                 throw new Exception("write failed");
             rattr.addFlashAttribute("mode","new");
-            rattr.addFlashAttribute("msg", "WRT_OK");
+            rattr.addFlashAttribute("msg", "WRT_OK");   //boardList.jsp에서 보여줄거임
             return "redirect:/board/list";
+
         } catch (Exception e) {
+            System.out.println("글쓰기 에러");
             e.printStackTrace();
             m.addAttribute("boardDto", boardDto);
+            m.addAttribute("mode","new");
             m.addAttribute("msg", "WRT_ERR");
             return "board";
         }

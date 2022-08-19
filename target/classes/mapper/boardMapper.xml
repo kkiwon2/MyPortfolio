@@ -3,17 +3,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.myportfolio.web.dao.BoardMapper">
+<!--  게시판 총 페이지 갯수 -->
     <select id="count" resultType="int">
         SELECT count(*)
         FROM tbl_board
     </select>
 
-
+<!--게시판 전체 삭제-->
     <delete id="deleteAll">
         DELETE
         FROM tbl_board
     </delete>
 
+<!--작성자 게시글 삭제   -->
     <delete id="delete" parameterType="map">
         DELETE
         FROM tbl_board
@@ -21,12 +23,14 @@
           and writer = #{writer}
     </delete>
 
+<!--    작성자 게시글 추가-->
     <insert id="insert" parameterType="BoardDto">
         INSERT INTO tbl_board
             (title, content, writer)
         VALUES (#{title}, #{content}, #{writer})
     </insert>
 
+<!--    게시판 게시글 전체 검색-->
     <select id="selectAll" resultType="BoardDto">
         SELECT bno, title, content, writer, view_cnt, comment_cnt, reg_date
         FROM tbl_board
@@ -38,17 +42,20 @@
         FROM tbl_board
     </sql>
 
+<!-- 특정 게시글 조회-->
     <select id="select" parameterType="int" resultType="BoardDto">
         <include refid="selectFromBoard"/>
         WHERE bno = #{bno}
     </select>
 
+<!--게시판 페이징처리하여 조회-->
     <select id="selectPage" parameterType="map" resultType="BoardDto">
         <include refid="selectFromBoard"/>
         ORDER BY reg_date DESC, bno DESC
         LIMIT #{offset}, #{pageSize}
     </select>
 
+<!--    특정 게시글 수정-->
     <update id="update" parameterType="BoardDto">
         UPDATE tbl_board
         SET title   = #{title}
@@ -58,12 +65,14 @@
           and writer = #{writer}
     </update>
 
+<!--    게시글 조회수 증가-->
     <update id="increaseViewCnt" parameterType="int">
         UPDATE tbl_board
         SET view_cnt = view_cnt + 1
         WHERE bno = #{bno}
     </update>
 
+<!--    검색어로 게시판 게시글 검색-->
     <select id="searchSelectPage" parameterType="SearchCondition" resultType="BoardDto">
         Select bno, title, content, writer, view_cnt, comment_cnt, reg_date
         FROM tbl_board
@@ -73,6 +82,7 @@
         LIMIT #{offset}, #{pageSize}
     </select>
 
+<!--    검색어로 게시글 조회 갯수-->
     <select id="searchResultCnt" parameterType="SearchCondition" resultType="int">
         Select count(*)
         FROM tbl_board
@@ -96,6 +106,7 @@
         </choose>
     </sql>
 
+<!--    댓글 갯수 증가-->
     <update id="updateCommentCnt" parameterType="map">
         UPDATE tbl_board
         set comment_cnt = comment_cnt + #{cnt}

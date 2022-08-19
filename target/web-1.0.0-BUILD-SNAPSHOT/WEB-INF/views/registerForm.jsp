@@ -223,6 +223,7 @@
 
         $(".idcheck").on("click", function (e){
             e.preventDefault();
+
             let id = $("input[name=id]").val()
             $.ajax({
                 type: 'GET',       // 요청 메서드

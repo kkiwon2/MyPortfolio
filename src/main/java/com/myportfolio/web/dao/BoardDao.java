@@ -1,7 +1,7 @@
 package com.myportfolio.web.dao;
 
 import com.myportfolio.web.domain.BoardDto;
-import com.myportfolio.web.domain.SearchCondition;
+import com.myportfolio.web.handler.SearchCondition;
 
 import java.util.List;
 import java.util.Map;

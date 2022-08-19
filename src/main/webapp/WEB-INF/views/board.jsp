@@ -11,7 +11,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>fastcampus</title>
+    <title>MyPortfolio</title>
     <link rel="stylesheet" href="<c:url value='/css/menu.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/board.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/comment.css'/>">

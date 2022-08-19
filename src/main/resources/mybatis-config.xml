@@ -5,7 +5,7 @@
 <configuration>
     <typeAliases>
         <typeAlias alias="BoardDto" type="com.myportfolio.web.domain.BoardDto"/>
-        <typeAlias alias="SearchCondition" type="com.myportfolio.web.domain.SearchCondition"/>
+        <typeAlias alias="SearchCondition" type="com.myportfolio.web.handler.SearchCondition"/>
         <typeAlias alias="User" type="com.myportfolio.web.domain.UserDto"/>
         <typeAlias alias="CommentDto" type="com.myportfolio.web.domain.CommentDto"/>
     </typeAliases>

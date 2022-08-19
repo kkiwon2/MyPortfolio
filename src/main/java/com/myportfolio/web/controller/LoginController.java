@@ -24,8 +24,8 @@ public class LoginController {
     //Login화면 요청
     //localhost/web/login/login GET
     @GetMapping("/login")
-    public String loginForm(HttpSession session) {
-        session.invalidate();   //로그인 안했으니까 세션없앰
+    public String loginForm() {
+
         return "loginForm";
     }
 
@@ -60,10 +60,8 @@ public class LoginController {
 //		       2. 응답에 저장
             response.addCookie(cookie);
         }//else
-//		       3. 홈으로 이동
-
+//		       3. 홈으로 이동(로그인 이전에 게시판 접속을 시도했다면 바로 게시판으로 이동하기 위한 toURL값을 주었다.)
         toURL = (toURL == null || toURL.equals("") ? "/" : toURL);
-
         return "redirect:" + toURL;
     }// @PostMapping("/login")
 

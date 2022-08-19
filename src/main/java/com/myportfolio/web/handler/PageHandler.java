@@ -1,6 +1,4 @@
-package com.myportfolio.web.domain;
-
-import org.springframework.web.util.UriComponentsBuilder;
+package com.myportfolio.web.handler;
 
 //게시판의 페이지를 결정하는 도메인
 public class PageHandler {
@@ -13,15 +11,14 @@ public class PageHandler {
     private int totalCnt; // 게시물의 총 갯수
     private int naviSize = 10;  //페이지 네비게이션의 크기
     private int totalPage; // 전체 페이지의 갯수
-    private int beginPage; // 화면에 보여줄 첫 페이지
-    private int endPage; // 화면에 보여줄 마지막 페이지
+    private int beginPage; // 화면에 보여줄 네비게이션의 첫 페이지
+    private int endPage; // 화면에 보여줄 네비게이션의 마지막 페이지
     private boolean showNext = false; // 이후를 보여줄지의 여부. endPage==totalPage이면, showNext는 false
     private boolean showPrev = false; // 이전을 보여줄지의 여부. beginPage==1이 아니면 showPrev는 false
 
     public PageHandler(int totalCnt, SearchCondition sc){
         this.totalCnt = totalCnt;
         this.sc = sc;
-
         doPaging(totalCnt, sc);
     }
 
@@ -36,6 +33,7 @@ public class PageHandler {
         showNext = endPage <totalPage;
     }
 
+    //페이지 네비게이션을 출력하는 메서드 테스트용
     void print() {
         System.out.println("page = " + sc.getPage());
         System.out.print(showPrev ? "[PREV] " : "");
@@ -44,28 +42,6 @@ public class PageHandler {
         }
         System.out.println(showNext ? " [NEXT]" : "");
     }
-
-    //지정된 페이지에 대한 네비게이션 쿼리스트링도 필요함 ->  PageHandler보다 option과 keyword가 있는SearchCondtion에 있는게 더 적합한거 같다.
-//    public String getQueryString(Integer page){
-//        return UriComponentsBuilder.newInstance()
-//                .queryParam("page",page)    //지정된 페이지로 셋팅되게
-//                .queryParam("pageSize",sc.getPageSize())
-//                .queryParam("option",sc.getOption())
-//                .queryParam("keyword",sc.getKeyword())
-//                .build().toString();
-//    }
-//    // 검색결과를 받다가 목록으로 돌아올 때 값들을 유지해야됨
-//    // ?page=1&pageSize=10&option=T&keyword="title"를 일일히 만들기 귀찮아서 만든메서드
-//    public String getQueryString() {
-////        return UriComponentsBuilder.newInstance()
-////                .queryParam("page",sc.getPage())
-////                .queryParam("pageSize",sc.getPageSize())
-////                .queryParam("option",sc.getOption())
-////                .queryParam("keyword",sc.getKeyword())
-////                .build().toString();
-//        //코드 중복으로 인해 위를 호출
-//        return getQueryString(sc.getPage());
-//    }
 
     public int getTotalCnt() {
         return totalCnt;
