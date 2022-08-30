@@ -29,8 +29,7 @@ public class BoardController {
     //  localhost:/board/list GET
     @GetMapping("/list")
     public String list(SearchCondition sc, Model m, HttpServletRequest request) {
-
-        //Board 게시판에 가기전에 로그인을 체크 - 로그인을 하지 않았다면
+        //Board 게시판에 가기전에 로그인을 체크 - 로그인을 하지 않았다면 로그인화면으로 redirect한다.
         if (!loginCheck(request)) {
 //            System.out.println("request.getRequestURL() = " + request.getRequestURL()); //어디로 요청했는지 알 수 있음 to
 //            System.out.println("request.getRequestURI() = " + request.getRequestURI()); //이건 Host빼고 ContextRoot부터나옴
@@ -45,16 +44,22 @@ public class BoardController {
             m.addAttribute("totalCnt", totalCnt);
 
             PageHandler pageHandler = new PageHandler(totalCnt, sc);
+            // PageHandler 객체를 생성하여 시작 페이지, 끝 페이지, 검색어, 검색타입을 계산합니다.
 
             List<BoardDto> list = boardService.SearchResultPage(sc);
+            //
             m.addAttribute("list", list);
             m.addAttribute("ph", pageHandler);
 
             //2022/07/24 새벽1시
             Instant startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
-//            System.out.println("startOfToday = " + startOfToday);
+            System.out.println("startOfToday = " + startOfToday);
+            System.out.println("startOfToday.toEpochMilli = " + startOfToday.toEpochMilli());
+            System.out.println("LocalDate.now().atStartOfDay = " + LocalDate.now().atStartOfDay());
+            System.out.println("LocalDate.now().atStartOfDay(ZoneId.systemDefault = " + LocalDate.now().atStartOfDay(ZoneId.systemDefault()));
+            System.out.println(LocalDate.now());
             m.addAttribute("startOfToday", startOfToday.toEpochMilli());
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }//catch
@@ -77,7 +82,7 @@ public class BoardController {
             m.addAttribute("boardDto", boardDto);
             m.addAttribute("page", page);
             m.addAttribute("pageSize", pageSize);
-            m.addAttribute("sc",sc);
+            m.addAttribute("sc", sc);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -124,7 +129,7 @@ public class BoardController {
             int rowCnt = boardService.write(boardDto);
             if (rowCnt != 1)
                 throw new Exception("write failed");
-            rattr.addFlashAttribute("mode","new");
+            rattr.addFlashAttribute("mode", "new");
             rattr.addFlashAttribute("msg", "WRT_OK");   //boardList.jsp에서 보여줄거임
             return "redirect:/board/list";
 
@@ -132,7 +137,7 @@ public class BoardController {
             System.out.println("글쓰기 에러");
             e.printStackTrace();
             m.addAttribute("boardDto", boardDto);
-            m.addAttribute("mode","new");
+            m.addAttribute("mode", "new");
             m.addAttribute("msg", "WRT_ERR");
             return "board";
         }
