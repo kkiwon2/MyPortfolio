@@ -176,3 +176,6 @@ local.properties
 # Typically, this file would be tracked if it contains build/dependency configurations:
 #.project
 
+#ajaxtest
+!/src/main/webapp/WEB-INF/views/ajaxtest/
+!/src/main/webapp/resources/bootstrap/
